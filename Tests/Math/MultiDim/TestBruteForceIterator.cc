@@ -35,6 +35,17 @@ namespace Hammer::MultiDimensional {
         EXPECT_EQ(*b4.begin(), s4);
     }
 
+    TEST(BruteForceTest, FullyFixedCoordinates) {
+        const IndexList dimensions{3, 2};
+        for (const auto& fixed : {IndexList{0, 0}, IndexList{2, 1}}) {
+            const BruteForceIteratorRange range{dimensions, fixed};
+            auto it = range.begin();
+            ASSERT_NE(it, range.end());
+            EXPECT_EQ(*it, fixed);
+            EXPECT_EQ(++it, range.end());
+        }
+    }
+
     TEST(BruteForceTest, Increment) {
         SequentialIndexing t{{2, 3, 1}};
         auto b = BruteForceIteratorRange(t.dims());
